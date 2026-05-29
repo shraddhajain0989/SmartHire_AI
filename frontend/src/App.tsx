@@ -9,6 +9,11 @@ import ResumePage from './pages/ResumePage'
 import AnalyticsPage from './pages/AnalyticsPage'
 import AdminPage from './pages/AdminPage'
 import NotFoundPage from './pages/NotFoundPage'
+import InterviewPlaybackPage from './pages/InterviewPlaybackPage'
+import PracticePage from './pages/PracticePage'
+import ProfilePage from './pages/ProfilePage'
+import MCQPage from './pages/MCQPage'
+import VerbalPracticePage from './pages/VerbalPracticePage'
 import ProtectedRoute from './components/ProtectedRoute'
 import Navbar from './components/Navbar'
 
@@ -28,6 +33,11 @@ function App() {
             <Route path="/" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
             <Route path="/interview" element={<ProtectedRoute><InterviewPage /></ProtectedRoute>} />
             <Route path="/coding" element={<ProtectedRoute><CodingPage /></ProtectedRoute>} />
+            <Route path="/practice" element={<ProtectedRoute><PracticePage /></ProtectedRoute>} />
+            <Route path="/mcq" element={<ProtectedRoute><MCQPage /></ProtectedRoute>} />
+            <Route path="/verbal" element={<ProtectedRoute><VerbalPracticePage /></ProtectedRoute>} />
+            <Route path="/playback" element={<ProtectedRoute><InterviewPlaybackPage /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
             <Route path="/resume" element={<ProtectedRoute><ResumePage /></ProtectedRoute>} />
             <Route path="/analytics" element={<ProtectedRoute><AnalyticsPage /></ProtectedRoute>} />
             <Route path="/admin" element={<ProtectedRoute adminOnly><AdminPage /></ProtectedRoute>} />

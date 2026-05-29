@@ -2,29 +2,385 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
+@layer base {
+  :root {
+    color-scheme: light;
+    
+    /* App Background */
+    --app-bg: #f8fafc;
+    --app-bg-radial-1: rgba(79, 70, 229, 0.08);
+    --app-bg-radial-2: rgba(6, 182, 212, 0.08);
+    
+    /* Glass Panel (Light) */
+    --glass-panel-bg: rgba(255, 255, 255, 0.7);
+    --glass-panel-border: rgba(255, 255, 255, 1);
+    --glass-panel-shadow: 0 24px 60px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 1);
+    
+    /* Glass Card (Light) */
+    --glass-card-bg: rgba(255, 255, 255, 0.5);
+    --glass-card-border: rgba(0, 0, 0, 0.05);
+    --glass-card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 1);
+    
+    /* Glass Card Hover (Light) */
+    --glass-card-hover-bg: rgba(255, 255, 255, 0.8);
+    --glass-card-hover-border: rgba(6, 182, 212, 0.4);
+    --glass-card-hover-shadow: 0 20px 40px rgba(6, 182, 212, 0.1), inset 0 1px 0 rgba(255, 255, 255, 1);
+    
+    /* Inputs (Light) */
+    --glass-input-bg: rgba(255, 255, 255, 0.6);
+    --glass-input-border: rgba(0, 0, 0, 0.1);
+    --glass-input-text: #0f172a;
+    --glass-input-focus-border: rgba(79, 70, 229, 0.6);
+    --glass-input-focus-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15), 0 4px 16px rgba(79, 70, 229, 0.1);
+    
+    /* Select (Light) */
+    --glass-select-bg: rgba(255, 255, 255, 0.8);
+    
+    /* Primary Buttons (Light) */
+    --glass-btn-primary-bg: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+    --glass-btn-primary-text: #ffffff;
+    --glass-btn-primary-hover-bg: linear-gradient(135deg, #4338ca 0%, #312e81 100%);
+    --glass-btn-primary-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+    --glass-btn-primary-hover-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+
+    /* Secondary Buttons (Light) */
+    --glass-btn-sec-bg: rgba(255, 255, 255, 0.95);
+    --glass-btn-sec-border: rgba(15, 23, 42, 0.15);
+    --glass-btn-sec-text: #0f172a;
+    --glass-btn-sec-hover-bg: #f1f5f9;
+    --glass-btn-sec-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --glass-btn-sec-hover-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    
+    /* Danger Buttons (Light) */
+    --glass-btn-danger-bg: rgba(239, 68, 68, 0.1);
+    --glass-btn-danger-border: rgba(239, 68, 68, 0.3);
+    --glass-btn-danger-text: #b91c1c;
+    --glass-btn-danger-hover-bg: rgba(239, 68, 68, 0.15);
+    
+    /* Glow (Light) */
+    --text-glow-indigo: 0 0 16px rgba(79, 70, 229, 0.2);
+    --text-glow-cyan: 0 0 16px rgba(6, 182, 212, 0.2);
+    --text-glow-white: none;
+    
+    /* Scrollbar (Light) */
+    --scrollbar-thumb: rgba(0, 0, 0, 0.2);
+    --scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
+  }
+
+  .dark {
+    color-scheme: dark;
+    
+    /* App Background */
+    --app-bg: #040114;
+    --app-bg-radial-1: rgba(79, 70, 229, 0.14);
+    --app-bg-radial-2: rgba(6, 182, 212, 0.14);
+    
+    /* Glass Panel (Dark) */
+    --glass-panel-bg: rgba(10, 8, 28, 0.45);
+    --glass-panel-border: rgba(255, 255, 255, 0.08);
+    --glass-panel-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    
+    /* Glass Card (Dark) */
+    --glass-card-bg: rgba(255, 255, 255, 0.03);
+    --glass-card-border: rgba(255, 255, 255, 0.05);
+    --glass-card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    
+    /* Glass Card Hover (Dark) */
+    --glass-card-hover-bg: rgba(255, 255, 255, 0.06);
+    --glass-card-hover-border: rgba(6, 182, 212, 0.25);
+    --glass-card-hover-shadow: 0 20px 40px rgba(6, 182, 212, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    
+    /* Inputs (Dark) */
+    --glass-input-bg: rgba(255, 255, 255, 0.02);
+    --glass-input-border: rgba(255, 255, 255, 0.06);
+    --glass-input-text: #f8fafc;
+    --glass-input-focus-border: rgba(79, 70, 229, 0.6);
+    --glass-input-focus-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15), 0 4px 16px rgba(79, 70, 229, 0.1);
+    
+    /* Select (Dark) */
+    --glass-select-bg: rgba(8, 7, 24, 0.85);
+    
+    /* Primary Buttons (Dark) */
+    --glass-btn-primary-bg: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    --glass-btn-primary-text: #ffffff;
+    --glass-btn-primary-hover-bg: linear-gradient(135deg, #6366f1 0%, #22d3ee 100%);
+    --glass-btn-primary-shadow: 0 4px 20px rgba(79, 70, 229, 0.25);
+    --glass-btn-primary-hover-shadow: 0 12px 32px rgba(6, 182, 212, 0.4);
+
+    /* Secondary Buttons (Dark) */
+    --glass-btn-sec-bg: rgba(255, 255, 255, 0.04);
+    --glass-btn-sec-border: rgba(255, 255, 255, 0.08);
+    --glass-btn-sec-text: #f8fafc;
+    --glass-btn-sec-hover-bg: rgba(255, 255, 255, 0.08);
+    --glass-btn-sec-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    --glass-btn-sec-hover-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    
+    /* Danger Buttons (Dark) */
+    --glass-btn-danger-bg: rgba(239, 68, 68, 0.12);
+    --glass-btn-danger-border: rgba(239, 68, 68, 0.25);
+    --glass-btn-danger-text: #fca5a5;
+    --glass-btn-danger-hover-bg: rgba(239, 68, 68, 0.22);
+    
+    /* Glow (Dark) */
+    --text-glow-indigo: 0 0 16px rgba(79, 70, 229, 0.45);
+    --text-glow-cyan: 0 0 16px rgba(6, 182, 212, 0.45);
+    --text-glow-white: 0 0 16px rgba(248, 250, 252, 0.3);
+    
+    /* Scrollbar (Dark) */
+    --scrollbar-thumb: rgba(255, 255, 255, 0.08);
+    --scrollbar-thumb-hover: rgba(255, 255, 255, 0.18);
+  }
 }
 
 body {
   margin: 0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at top left, rgba(34, 211, 238, 0.12), transparent 25%), radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.14), transparent 22%), #020617;
+  font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  background-color: var(--app-bg);
+  background-image: 
+    radial-gradient(circle at 10% 20%, var(--app-bg-radial-1) 0%, transparent 40%),
+    radial-gradient(circle at 90% 10%, var(--app-bg-radial-2) 0%, transparent 40%),
+    radial-gradient(circle at 50% 80%, var(--app-bg-radial-1) 0%, transparent 35%),
+    radial-gradient(circle at 80% 90%, var(--app-bg-radial-2) 0%, transparent 35%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  letter-spacing: -0.01em;
+  transition: background-color 0.5s ease, background-image 0.5s ease, color 0.5s ease;
 }
 
-button, input, textarea, select {
-  font: inherit;
+.font-body {
+  font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
+.font-display {
+  font-family: 'Outfit', ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Premium VisionOS/iOS Glassmorphism panels */
+.glass-panel {
+  background: var(--glass-panel-bg);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid var(--glass-panel-border);
+  box-shadow: var(--glass-panel-shadow);
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.glass-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Glass cards with interactive floating transition effects */
+.glass-card {
+  background: var(--glass-card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-card-border);
+  box-shadow: var(--glass-card-shadow);
+  border-radius: 22px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  background: var(--glass-card-hover-bg);
+  border-color: var(--glass-card-hover-border);
+  box-shadow: var(--glass-card-hover-shadow);
+}
+
+/* iOS Translucent Inputs */
+.glass-input {
+  background: var(--glass-input-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-input-border);
+  border-radius: 16px;
+  color: var(--glass-input-text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-input:focus {
+  outline: none;
+  background: var(--glass-input-bg);
+  border-color: var(--glass-input-focus-border);
+  box-shadow: var(--glass-input-focus-shadow);
+}
+
+.glass-select {
+  background-color: var(--glass-select-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-input-border);
+  border-radius: 16px;
+  color: var(--glass-input-text);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-select:focus {
+  border-color: var(--glass-input-focus-border);
+  box-shadow: var(--glass-input-focus-shadow);
+}
+
+/* iOS 26 Styled Buttons - Primary retains core gradients */
+.glass-btn-primary {
+  position: relative;
+  background: var(--glass-btn-primary-bg);
+  color: var(--glass-btn-primary-text);
+  font-weight: 600;
+  border-radius: 9999px;
+  box-shadow: var(--glass-btn-primary-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.glass-btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--glass-btn-primary-hover-bg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glass-btn-primary:hover::before {
+  opacity: 1;
+}
+
+.glass-btn-primary > * {
+  position: relative;
+  z-index: 10;
+}
+
+.glass-btn-primary:hover {
+  transform: scale(1.02);
+  box-shadow: var(--glass-btn-primary-hover-shadow);
+}
+
+.glass-btn-primary:active {
+  transform: scale(0.98);
+}
+
+.glass-btn-secondary {
+  background: var(--glass-btn-sec-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-btn-sec-border);
+  color: var(--glass-btn-sec-text);
+  font-weight: 500;
+  border-radius: 9999px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--glass-btn-sec-shadow);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.glass-btn-secondary:hover {
+  background: var(--glass-btn-sec-hover-bg);
+  border-color: var(--glass-input-focus-border);
+  transform: scale(1.01) translateY(-1px);
+  box-shadow: var(--glass-btn-sec-hover-shadow);
+}
+
+.glass-btn-secondary:active {
+  transform: scale(0.99) translateY(0);
+}
+
+.glass-btn-danger {
+  background: var(--glass-btn-danger-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-btn-danger-border);
+  color: var(--glass-btn-danger-text);
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.glass-btn-danger:hover {
+  background: var(--glass-btn-danger-hover-bg);
+  border-color: var(--glass-input-focus-border);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.2);
+  transform: scale(1.01) translateY(-1px);
+}
+
+.glass-btn-danger:active {
+  transform: scale(0.99);
+}
+
+/* Glow effects and overlays */
+.text-glow-indigo {
+  text-shadow: var(--text-glow-indigo);
+  transition: text-shadow 0.5s ease;
+}
+
+.text-glow-cyan {
+  text-shadow: var(--text-glow-cyan);
+  transition: text-shadow 0.5s ease;
+}
+
+.text-glow-white {
+  text-shadow: var(--text-glow-white);
+  transition: text-shadow 0.5s ease;
+}
+
+/* iOS 26 dynamic custom scrollbars */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.3);
+  background: var(--scrollbar-thumb);
   border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.8);
+  background: transparent;
+}
+
+/* Animations and helpers */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(1.05);
+  }
+}
+
+.glow-background-glow {
+  animation: pulseGlow 10s ease-in-out infinite;
 }

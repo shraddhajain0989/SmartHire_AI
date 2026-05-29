@@ -4,6 +4,7 @@ export interface CodingQuestion {
   id: string
   title: string
   difficulty: string
+  category?: string
   description: string
   templates: {
     python: string

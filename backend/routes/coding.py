@@ -982,17 +982,194 @@ def run_python(code: str, q: dict) -> dict:
 @coding_bp.route('/questions', methods=['GET'])
 @jwt_required()
 def get_questions():
+    category = request.args.get('category')
+    difficulty = request.args.get('difficulty')
+    
+    query = {}
+    if category:
+        query['category'] = category
+    if difficulty:
+        query['difficulty'] = difficulty
+        
+    db_questions = list(db.coding_questions.find(query))
+    
+    if not db_questions:
+        # Fallback to CODING_QUESTIONS list
+        db_questions = CODING_QUESTIONS
+        if category:
+            db_questions = [q for q in db_questions if q.get('category') == category]
+        if difficulty:
+            db_questions = [q for q in db_questions if q.get('difficulty') == difficulty]
+            
     payload = [
         {
-            'id': q['id'],
+            'id': str(q.get('_id', q.get('id'))),
+            'question_id': q.get('id'), # internal string ID
             'title': q['title'],
             'difficulty': q['difficulty'],
+            'category': q.get('category', 'Algorithms'),
             'description': q['description'],
             'templates': q['templates']
         }
-        for q in CODING_QUESTIONS
+        for q in db_questions
     ]
     return jsonify({'questions': payload})
+
+
+@coding_bp.route('/random', methods=['GET'])
+@jwt_required()
+def get_random_question():
+    category = request.args.get('category')
+    difficulty = request.args.get('difficulty')
+    
+    query = {}
+    if category:
+        query['category'] = category
+    if difficulty:
+        query['difficulty'] = difficulty
+        
+    db_questions = list(db.coding_questions.find(query))
+    if not db_questions:
+        db_questions = CODING_QUESTIONS
+        if category:
+            db_questions = [q for q in db_questions if q.get('category') == category]
+        if difficulty:
+            db_questions = [q for q in db_questions if q.get('difficulty') == difficulty]
+            
+    if not db_questions:
+        return jsonify({'message': 'No questions found.'}), 404
+        
+    import random
+    q = random.choice(db_questions)
+    
+    return jsonify({
+        'id': str(q.get('_id', q.get('id'))),
+        'question_id': q.get('id'),
+        'title': q['title'],
+        'difficulty': q['difficulty'],
+        'category': q.get('category', 'Algorithms'),
+        'description': q['description'],
+        'templates': q['templates']
+    })
+
+
+@coding_bp.route('/daily', methods=['GET'])
+@jwt_required()
+def get_daily_question():
+    db_questions = list(db.coding_questions.find())
+    if not db_questions:
+        db_questions = CODING_QUESTIONS
+        
+    # Use current day of the year to pick a deterministic question
+    from datetime import datetime
+    day_of_year = datetime.utcnow().timetuple().tm_yday
+    idx = day_of_year % len(db_questions)
+    q = db_questions[idx]
+    
+    return jsonify({
+        'id': str(q.get('_id', q.get('id'))),
+        'question_id': q.get('id'),
+        'title': q['title'],
+        'difficulty': q['difficulty'],
+        'category': q.get('category', 'Algorithms'),
+        'description': q['description'],
+        'templates': q['templates'],
+        'is_daily': True
+    })
+
+
+@coding_bp.route('/ai-generate', methods=['POST'])
+@jwt_required()
+def ai_generate_question():
+    data = request.get_json(force=True)
+    category = data.get('category', 'Arrays')
+    difficulty = data.get('difficulty', 'Medium')
+    
+    # Try calling OpenAI API
+    from backend.services.ai_service import client as openai_client, OPENAI_API_KEY
+    try:
+        if not openai_client or not OPENAI_API_KEY or "REPLACE" in OPENAI_API_KEY:
+            raise ValueError("No OpenAI credentials found")
+            
+        prompt = (
+            f"You are a coding question creator. Generate a brand new, unique LeetCode-style coding question.\n"
+            f"Topic/Category: {category}\n"
+            f"Difficulty: {difficulty}\n"
+            f"Provide the description in clean Markdown format.\n"
+            f"Provide starter code templates for 'python' and 'javascript'.\n"
+            f"Provide 2 simple test cases.\n\n"
+            f"Output MUST be in strict JSON format matching this schema:\n"
+            f"{{\n"
+            f"  \"id\": \"unique_snake_case_string\",\n"
+            f"  \"title\": \"Question Title\",\n"
+            f"  \"difficulty\": \"{difficulty}\",\n"
+            f"  \"category\": \"{category}\",\n"
+            f"  \"description\": \"Question description in markdown\",\n"
+            f"  \"templates\": {{\n"
+            f"    \"python\": \"def func_name(args):\\n    pass\",\n"
+            f"    \"javascript\": \"function funcName(args) {{\\n}}\"\n"
+            f"  }},\n"
+            f"  \"function_names\": {{\n"
+            f"    \"python\": \"func_name\",\n"
+            f"    \"javascript\": \"funcName\"\n"
+            f"  }},\n"
+            f"  \"test_cases\": [\n"
+            f"    {{\"inputs\": [arg1, arg2], \"expected\": output}},\n"
+            f"    {{\"inputs\": [arg1, arg2], \"expected\": output}}\n"
+            f"  ]\n"
+            f"}}\n"
+            f"Do not wrap in Markdown blocks other than standard json."
+        )
+        
+        response = openai_client.chat.completions.create(
+            model='gpt-3.5-turbo',
+            messages=[
+                {'role': 'system', 'content': 'You are a helpful software engineer. Return only raw JSON.'},
+                {'role': 'user', 'content': prompt},
+            ],
+            max_tokens=800,
+            temperature=0.7,
+        )
+        content = response.choices[0].message.content.strip()
+        # strip markdown code blocks if any
+        if content.startswith("```json"):
+            content = content.split("```json")[1].split("```")[0].strip()
+        elif content.startswith("```"):
+            content = content.split("```")[1].split("```")[0].strip()
+            
+        q_data = json.loads(content)
+        
+        # Save generated question to DB so it becomes part of the permanent bank
+        db.coding_questions.insert_one(q_data)
+        
+        # Remove Mongo ObjectId before return
+        if '_id' in q_data:
+            q_data['_id'] = str(q_data['_id'])
+            
+        return jsonify(q_data)
+        
+    except Exception as e:
+        print(f"[AI Service] OpenAI ai-generate coding question failed: {e}. Falling back to random question from bank.")
+        # Fallback to random question matching filters
+        query = {'category': category, 'difficulty': difficulty}
+        questions = list(db.coding_questions.find(query))
+        if not questions:
+            questions = list(db.coding_questions.find())
+            
+        import random
+        q = random.choice(questions) if questions else CODING_QUESTIONS[0]
+        
+        return jsonify({
+            'id': str(q.get('_id', q.get('id'))),
+            'question_id': q.get('id'),
+            'title': q['title'] + " (AI Offline Fallback)",
+            'difficulty': q['difficulty'],
+            'category': q.get('category', 'Algorithms'),
+            'description': q['description'],
+            'templates': q['templates'],
+            'function_names': q.get('function_names', {}),
+            'test_cases': q.get('test_cases', [])
+        })
 
 
 @coding_bp.route('/run', methods=['POST'])
@@ -1007,7 +1184,136 @@ def run_code():
     if not question_id or not code:
         return jsonify({'message': 'Missing question_id or code.'}), 400
 
-    q = next((item for item in CODING_QUESTIONS if item['id'] == question_id), None)
+    # Search in DB coding_questions
+    q = db.coding_questions.find_one({'id': question_id})
+    if not q:
+        # Fallback to hardcoded list
+        q = next((item for item in CODING_QUESTIONS if item['id'] == question_id), None)
+        
+    if not q:
+        # Check if it is a user-created custom question
+        # If it is, build a mock question shell to execute
+        custom_q = db.custom_questions.find_one({'_id': ObjectId(question_id)}) if len(question_id) == 24 else None
+        if custom_q:
+            # We construct a mock question structure to let them run code
+            q = {
+                'id': question_id,
+                'title': custom_q['title'],
+                'difficulty': custom_q.get('difficulty', 'Medium'),
+                'function_names': {'python': 'solution', 'javascript': 'solution'},
+                'test_cases': [{'inputs': [], 'expected': None}] # simple mock check
+            }
+            # Add simple solution runners
+            # If language is python, execute it inside custom run namespace
+            if language == 'python':
+                try:
+                    stdout_capture = io.StringIO()
+                    original_stdout = sys.stdout
+                    sys.stdout = stdout_capture
+                    namespace = {}
+                    exec(code, namespace)
+                    sys.stdout = original_stdout
+                    
+                    res = {
+                        'success': True,
+                        'all_passed': True,
+                        'results': [{
+                            'test_case': 1,
+                            'inputs': '[]',
+                            'expected': 'None',
+                            'output': 'Success',
+                            'passed': True
+                        }],
+                        'stdout': stdout_capture.getvalue()
+                    }
+                except Exception as ex:
+                    sys.stdout = original_stdout
+                    res = {
+                        'success': False,
+                        'error': str(ex),
+                        'stdout': stdout_capture.getvalue()
+                    }
+                # Log custom reattempt in custom question history
+                db.custom_questions.update_one(
+                    {'_id': ObjectId(question_id)},
+                    {
+                        '$push': {
+                            'attempts': {
+                                'code': code,
+                                'language': language,
+                                'passed': res.get('success', False),
+                                'stdout': res.get('stdout', ''),
+                                'completed_at': datetime.utcnow().isoformat()
+                            }
+                        },
+                        '$set': {
+                            'best_score': 100 if res.get('success', False) else 0
+                        }
+                    }
+                )
+                return jsonify(res)
+                
+            elif language == 'javascript':
+                # Javascript custom compiler check
+                temp_dir = tempfile.gettempdir()
+                fd, path = tempfile.mkstemp(suffix='.js', dir=temp_dir)
+                try:
+                    with os.fdopen(fd, 'w') as tmp:
+                        tmp.write(code + "\nconsole.log('Execution finished successfully');")
+                    process = subprocess.run(['node', path], capture_output=True, text=True, timeout=5)
+                    stdout = process.stdout
+                    stderr = process.stderr
+                    
+                    if process.returncode != 0:
+                        res = {
+                            'success': False,
+                            'error': stderr or stdout,
+                            'stdout': stdout
+                        }
+                    else:
+                        res = {
+                            'success': True,
+                            'all_passed': True,
+                            'results': [{
+                                'test_case': 1,
+                                'inputs': '[]',
+                                'expected': 'None',
+                                'output': 'Success',
+                                'passed': True
+                            }],
+                            'stdout': stdout
+                        }
+                except Exception as ex:
+                    res = {
+                        'success': False,
+                        'error': str(ex),
+                        'stdout': ""
+                    }
+                finally:
+                    try:
+                        os.remove(path)
+                    except:
+                        pass
+                
+                db.custom_questions.update_one(
+                    {'_id': ObjectId(question_id)},
+                    {
+                        '$push': {
+                            'attempts': {
+                                'code': code,
+                                'language': language,
+                                'passed': res.get('success', False),
+                                'stdout': res.get('stdout', ''),
+                                'completed_at': datetime.utcnow().isoformat()
+                            }
+                        },
+                        '$set': {
+                            'best_score': 100 if res.get('success', False) else 0
+                        }
+                    }
+                )
+                return jsonify(res)
+
     if not q:
         return jsonify({'message': 'Question not found.'}), 404
 
@@ -1031,6 +1337,7 @@ def run_code():
         'question_id': question_id,
         'question_title': q['title'],
         'difficulty': q['difficulty'],
+        'category': q.get('category', 'Algorithms'),
         'language': language,
         'code': code,
         'passed': res.get('all_passed', False) if res.get('success') else False,

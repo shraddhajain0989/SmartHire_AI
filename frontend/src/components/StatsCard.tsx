@@ -6,10 +6,10 @@ interface StatsCardProps {
 
 export default function StatsCard({ title, value, description }: StatsCardProps) {
   return (
-    <div className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-glass backdrop-blur-xl transition-all duration-300">
-      <div className="text-sm uppercase tracking-[0.3em] text-cyan-600 dark:text-cyan-200/80">{title}</div>
-      <div className="mt-4 text-3xl font-semibold text-slate-900 dark:text-white">{value}</div>
-      <p className="mt-3 text-sm text-slate-500 dark:text-slate-350">{description}</p>
+    <div className="glass-card p-6 border border-white/5 bg-white/[0.02]">
+      <div className="text-xs uppercase tracking-[0.2em] font-bold text-slate-500 dark:text-slate-400 font-display">{title}</div>
+      <div className="mt-3 text-4xl font-extrabold text-slate-900 dark:text-white font-display tracking-tight">{value}</div>
+      <p className="mt-2 text-xs text-slate-600 dark:text-slate-450 leading-relaxed">{description}</p>
     </div>
   )
 }

@@ -1,7 +1,10 @@
 # Node and frontend
-frontend/node_modules
-frontend/dist
+frontend/node_modules/
+frontend/dist/
 frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
 frontend/.DS_Store
 frontend/package-lock.json
 frontend/pnpm-lock.yaml
@@ -10,13 +13,26 @@ frontend/yarn.lock
 # Python backend
 **/__pycache__/
 **/*.pyc
+**/*.pyo
+**/*.pyd
+.pytest_cache/
+.tox/
+.coverage
+htmlcov/
 backend/env/
 backend/venv/
 backend/.env
 
+# Local upload/static files (ignore all uploads except .gitkeep)
+backend/static/uploads/*
+!backend/static/uploads/.gitkeep
+backend/static/profiles/*
+!backend/static/profiles/.gitkeep
+
 # General
 .DS_Store
-.vscode
+.vscode/
+.idea/
 .env
-.venv
-
+.venv/
+*.log

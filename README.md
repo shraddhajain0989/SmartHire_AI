@@ -1,145 +1,309 @@
-# SmartHire AI - Next-Gen AI Mock Interview Platform
+# 🌌 SmartHire AI — Next-Gen AI Mock Interview & Coding Arena Platform
 
-SmartHire AI is a state-of-the-art mock interview simulation and preparation tool designed to help candidates land their dream jobs. By combining advanced Natural Language Processing (NLP) models, OpenAI's GPT models, audio transcription, and semantic similarity scoring, SmartHire AI parses resumes, generates custom role-specific questions, records user audio answers, and provides analytical, multi-dimensional feedback.
+<div align="center">
 
----
+[![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![React](https://img.shields.io/badge/React-18.x-blue.svg?style=for-the-badge&logo=react)](https://react.dev/)
+[![Flask](https://img.shields.io/badge/Flask-2.x-lightgrey.svg?style=for-the-badge&logo=flask)](https://flask.palletsprojects.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green.svg?style=for-the-badge&logo=mongodb)](https://www.mongodb.com/atlas)
+[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o-orange.svg?style=for-the-badge&logo=openai)](https://openai.com/)
 
-## 🚀 Key Features
+An intelligent, glassmorphism-designed SaaS platform powered by OpenAI, advanced NLP models, and real-time audio/video processing. It conducts automated technical mock interviews, compiles multi-language algorithms, compresses candidate session recordings, and serves exhaustive cognitive feedback.
 
-*   **Mock Interview Studio**: Dynamic mock interview generation tailored to target roles, difficulty settings, and individual resume signals.
-*   **Audio Transcription & Text Input**: Answer questions using your voice. The platform records your response, transcribes it via OpenAI's Whisper model, and feeds it into the analysis pipeline.
-*   **Multi-Language Coding Arena**: A LeetCode-like practice space supporting **5 different programming languages**:
-    *   🐍 **Python 3** (interpreted locally in-memory)
-    *   🟨 **JavaScript (Node)** (executed via Node.js sandbox subprocesses)
-    *   🟦 **C (GCC)** (compiled with `gcc` and run locally)
-    *   🎯 **C++ (G++)** (compiled with `g++ -std=c++17` and run locally)
-    *   ☕ **Java (JDK)** (compiled with `javac` and run locally)
-*   **Aesthetic Light & Dark Mode Toggle**: Global theme configurations enabling switching between high-contrast light mode and glassmorphic dark mode, persisting choices across reloads via local storage.
-*   **Candidate Dashboard & Analytics**: Visualizes mock interview history, confidence/similarity score trends, and dynamically highlights weak topics to improve upon.
-*   **Resume Parser**: Automatically extracts skills, capstone projects, and candidate summaries from uploaded PDF resumes using SpaCy-driven Named Entity Recognition (NER).
-*   **Role-based Access Control (RBAC)**: Secure user sign-up/login system with student profiles and an administrator dashboard for user directory management.
+**[Explore API Docs](file:///Users/dskumar/SmartHire_AI/backend/API_DOCS.md) • [View Structure](#-project-structure) • [Start Practicing](#-installation--setup-guide)**
+
+</div>
 
 ---
 
-## 📋 Beginner's Quick-Start Guide (Step-by-Step)
+## 📖 Project Overview
 
-Follow these exact steps to pull, configure, and run the entire project on your local machine.
+### The Problem
+Traditional interview prep tools are either passive (reading Q&As) or highly fragmented (one site for coding, another for behavioral video practice). Candidates lack objective, automated, real-time analytics concerning their technical precision, communication flow, and psychological confidence.
 
-### Prerequisites
-Make sure you have the following installed on your computer:
-*   [Git](https://git-scm.com/downloads)
-*   [Node.js](https://nodejs.org/) (version 18.x or above)
-*   [Python](https://www.python.org/downloads/) (version 3.12.x recommended)
+### The Solution
+**SmartHire AI** merges code execution, audio speech-to-text behavioral parsing, video recording with automated local FFmpeg compression, and SpaCy NLP semantic evaluation into a single, cohesive, premium Apple iOS 26 glassmorphism dashboard. 
+
+### Key Advantages
+*   **Contextual AI Adaptation:** The platform reads uploaded candidate resumes, parses core skills, and tailors mock questions to target roles dynamically.
+*   **Multi-Dimensional Scoring:** Scores candidates out of 100 on Technical Depth, Communication Delivery, and Confidence/Pacing metrics.
+*   **Optimized Video Pipeline:** Records mock session video natively and compresses files using a multi-threaded Python-FFmpeg subprocess script before saving, reducing storage footprint by up to 90% without losing playback quality.
 
 ---
+
+## ✨ Features
+
+### 🎙️ Mock Interview Studio
+*   **Role-Specific Generation:** Supports custom target roles (e.g., *Frontend Architect*, *ML Engineer*).
+*   **Speech & Text Inputs:** Record responses via microphone. Integrates OpenAI Whisper for automated speech-to-text transcriptions.
+*   **Evaluation Engine:** Parses text response similarities against generated benchmarks using the `sentence-transformers/all-MiniLM-L6-v2` semantic model.
+
+### 🐍 Multi-Language Coding Arena
+*   **Integrated Monaco Editor:** Visual Studio Code-grade interactive editor.
+*   **Local Code Compiler:** Subprocess sandboxing supporting **Python**, **JavaScript (Node.js)**, **C (GCC)**, **C++ (G++)**, and **Java**.
+*   **Pre-built Test Cases:** Automatically parses test outputs and compares inputs against expected outputs.
+
+### 📉 Candidate Analytics Dashboard
+*   **Performance Trajectory:** Responsive AreaCharts plotting score history.
+*   **Activity Metrics:** Completed interview counts, streak days, and average similarity rates.
+*   **Topic Focus Cards:** Highlights identified weakness modules (e.g., *Algorithms*, *System Design*).
+
+### 📑 Intelligent Resume Parser
+*   **PDF Extraction:** Upload and extract metadata from PDF resumes.
+*   **SpaCy NER Integration:** Identifies and registers skills, projects, and educational metadata.
+
+### ⚙️ Admin Console
+*   **User Directory Panel:** Search, filter, and review profiles of registered users.
+*   **Metrics Oversight:** Monitor system-wide interview activity.
+
+### 🎨 Apple iOS 26 Glassmorphic Design
+*   **Adaptive Dark & Light Modes:** Smooth animated transitions with carefully balanced contrast.
+*   **Micro-Animations:** Framer Motion-based transitions, hover state scaling, and blur glow backdrops.
+
+---
+
+## 📸 Screenshots Section
+
+<div align="center">
+  <table style="border: none;">
+    <tr>
+      <td width="50%"><p align="center"><b>Dashboard (Dark Glassmorphism)</b></p><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Dashboard Dark Mode" style="border-radius:12px;"/></td>
+      <td width="50%"><p align="center"><b>Interview Studio (Light Glassmorphism)</b></p><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Interview Studio Light Mode" style="border-radius:12px;"/></td>
+    </tr>
+    <tr>
+      <td width="50%"><p align="center"><b>Coding practice Arena</b></p><img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=80" alt="Coding practice" style="border-radius:12px;"/></td>
+      <td width="50%"><p align="center"><b>Candidate Analytics Summary</b></p><img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=600&q=80" alt="Analytics Summary" style="border-radius:12px;"/></td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+*   **Core:** React 18 (TypeScript), Vite
+*   **Styling:** Tailwind CSS, Custom Glassmorphism System
+*   **Animations:** Framer Motion, Lucide Icons
+*   **Data Vis:** Recharts (responsive charting)
+*   **Peripherals:** Monaco Code Editor, React Webcam
+
+### Backend
+*   **Engine:** Flask (Python 3.12)
+*   **Authentication:** JWT (Flask-JWT-Extended)
+*   **CORS Management:** Flask-CORS
+*   **NLP Pipeline:** SpaCy (Entity Extraction), Sentence-Transformers (Semantic Similarity)
+*   **Audio/Video Utility:** FFmpeg (Subprocess-based compression & encoding)
+
+### Database
+*   **DBMS:** MongoDB Atlas
+*   **Driver:** PyMongo
+
+---
+
+## 🚀 Installation & Setup Guide
+
+Ensure you have [Node.js v18+](https://nodejs.org/), [Python 3.12](https://www.python.org/downloads/), and [FFmpeg](https://ffmpeg.org/download.html) installed.
 
 ### Step 1: Clone the Repository
-Open your terminal (macOS/Linux) or Command Prompt/PowerShell (Windows) and run:
 ```bash
-git clone <repository-url>
+git clone https://github.com/shraddhajain0989/SmartHire_AI.git
 cd SmartHire_AI
 ```
 
----
-
-### Step 2: Set Up Environment Variables
-Create a file named `.env` in the root of the project directory and paste the following content:
-
-```env
-MONGO_URI=mongodb+srv://smarthierai_db_user:shraddha0319@cluster0.ko0fbyk.mongodb.net/smarthire?retryWrites=true&w=majority&appName=Cluster0
-JWT_SECRET=super-secret-demo-key
-OPENAI_API_KEY=your-openai-api-key-here
+### Step 2: Configure Environment Variables
+Create a `.env` file in the root directory:
+```bash
+cp .env.example .env
+```
+Open `.env` and fill in your credentials:
+```ini
+MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/smarthire
+JWT_SECRET=your-strong-random-key-here
+OPENAI_API_KEY=sk-your-openai-api-key
 CORS_ORIGINS=http://localhost:5173,http://localhost:4173
 TRANSFORMER_MODEL=sentence-transformers/all-MiniLM-L6-v2
 ```
 
-> 💡 **Note**: The `MONGO_URI` is already pre-configured to connect to the remote MongoDB Atlas Database Cluster. You do not need to install MongoDB locally!
+### Step 3: Setup Virtual Environment & Install Backend Dependencies
+```bash
+# Create virtual environment
+python3 -m venv backend/venv
+
+# Activate virtual environment
+# On macOS/Linux:
+source backend/venv/bin/activate
+# On Windows:
+backend\venv\Scripts\activate
+
+# Install required python packages
+pip install -r requirements.txt
+```
+
+### Step 4: Setup Database & Run Seeding
+Initialize the database questions and setup the default Administrator profile:
+```bash
+PYTHONPATH=. python backend/db_init.py
+PYTHONPATH=. python backend/seed.py
+```
+*Default Admin Credentials:*
+*   **Username / Email:** `admin@smarthire.ai`
+*   **Password:** `AdminPass123!`
+
+### Step 5: Install Frontend Dependencies
+Open a new terminal window, navigate to the `frontend` folder, and install package dependencies:
+```bash
+cd frontend
+npm install
+```
+
+### Step 6: Run Application Servers
+
+#### Run Backend (Terminal 1)
+Make sure your Python virtual environment is active in the project root directory:
+```bash
+PYTHONPATH=. python -m backend.app
+```
+*The Flask API server runs on http://localhost:5050.*
+
+#### Run Frontend (Terminal 2)
+Navigate to the `frontend` directory and start the Vite dev server:
+```bash
+cd frontend
+npm run dev
+```
+*The dev server runs on http://localhost:5173.*
 
 ---
 
-### Step 3: Set Up and Run the Backend
+## 🔑 Environment Variables
 
-1. **Create the Python Virtual Environment**:
-   *   **macOS / Linux**:
-       ```bash
-       python3 -m venv backend/venv
-       ```
-   *   **Windows**:
-       ```bash
-       python -m venv backend/venv
-       ```
+The project uses a central configuration file. The variables configured in `.env` are:
 
-2. **Activate the Virtual Environment**:
-   *   **macOS / Linux**:
-       ```bash
-       source backend/venv/bin/activate
-       ```
-   *   **Windows (Command Prompt)**:
-       ```cmd
-       backend\venv\Scripts\activate
-       ```
-   *   **Windows (PowerShell)**:
-       ```powershell
-       backend\venv\Scripts\Activate.ps1
-       ```
-
-3. **Install Backend Dependencies**:
-   With the virtual environment activated, run:
-   ```bash
-   pip install -r backend/requirements.txt
-   ```
-   *If you see any OpenAI compilation or TypeError complaints relating to `httpx`, update the client library using `pip install --upgrade openai`.*
-
-4. **Seed the Admin Account**:
-   Populate the remote database with default admin credentials:
-   ```bash
-   PYTHONPATH=. python backend/seed.py
-   ```
-   *Seeded Admin Credentials:*
-   *   **Email**: `admin@smarthire.ai`
-   *   **Password**: `AdminPass123!`
-
-5. **Start the Flask Backend Server**:
-   ```bash
-   PORT=5050 PYTHONPATH=. python backend/app.py
-   ```
-   The backend will start running on **`http://localhost:5050`**. Keep this terminal open!
+| Variable | Description | Default |
+| :--- | :--- | :--- |
+| `MONGO_URI` | Connection URI for the MongoDB Database cluster. | `mongodb://localhost:27017/smarthire` |
+| `JWT_SECRET` | Secret key utilized to sign & verify JSON Web Tokens. | `super-secret-change-me` |
+| `OPENAI_API_KEY` | Key for GPT-4o question generation and audio transcripts. | *None* |
+| `CORS_ORIGINS` | Permitted browser ports separated by commas. | `http://localhost:5173,http://localhost:4173` |
+| `TRANSFORMER_MODEL` | Hugging Face NLP model used for similarity checking. | `sentence-transformers/all-MiniLM-L6-v2` |
 
 ---
 
-### Step 4: Set Up and Run the Frontend
+## 📂 Project Structure
 
-1. Open a **new, separate terminal window/tab** and go into the `frontend` folder:
-   ```bash
-   cd frontend
-   ```
-
-2. **Install Frontend Dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Start the Frontend Dev Server**:
-   ```bash
-   npm run dev
-   ```
-   The frontend will start running on **`http://localhost:5173/`**.
+```
+SmartHire_AI/
+├── backend/
+│   ├── models/            # Database schema mappings & definitions
+│   ├── routes/            # Flask API endpoint endpoints (auth, coding, analytics...)
+│   ├── services/          # Business logic layers (OpenAI interfaces, resume NLP)
+│   ├── static/            # Static assets and upload repositories (resumes, webm clips)
+│   │   ├── profiles/      # User avatar image uploads
+│   │   └── uploads/       # Raw and compressed interview video files
+│   ├── utils/             # Helper utilities (FFmpeg multi-thread compression)
+│   ├── app.py             # Main entry point for Flask API Gateway
+│   ├── config.py          # Environment configuration loading script
+│   ├── db_init.py         # DB initializer & core database collection setup
+│   └── seed.py            # System admin profile seeder
+├── frontend/
+│   ├── public/            # Static files & document samples
+│   ├── src/
+│   │   ├── components/    # Reusable layouts, charts, and video players
+│   │   ├── hooks/         # Custom React hooks (auth interfaces)
+│   │   ├── pages/         # Page components (Dashboard, Arena, Interview...)
+│   │   ├── services/      # Axios request handlers for API interaction
+│   │   ├── styles/        # Global stylesheet and custom glassmorphism styles
+│   │   ├── App.tsx        # Router tree configuration
+│   │   └── main.tsx       # Root React initialization mount script
+│   ├── index.html         # Vite root entry template
+│   ├── package.json       # Node package manager declarations
+│   └── vite.config.ts     # Build configuration setup
+├── requirements.txt       # Global Python packages
+├── docker-compose.yml     # Containerized execution mapping
+└── README.md              # Main system documentation
+```
 
 ---
 
-### Step 5: Start Practicing!
-Open your browser and navigate to **[http://localhost:5173](http://localhost:5173)**. You can now register a student account or log in as the administrator using the seeded credentials.
+## 📡 REST API Summary
+
+Full backend routes are documented inside the [API Documentation File](file:///Users/dskumar/SmartHire_AI/backend/API_DOCS.md). Key routes are highlighted below:
+
+| Method | Endpoint | Auth | Description |
+| :--- | :--- | :--- | :--- |
+| **POST** | `/auth/register` | No | Creates a student account & returns a JWT token. |
+| **POST** | `/auth/login` | No | Verifies credentials & logs user in. |
+| **GET** | `/user/me` | Yes | Retrieves current user state. |
+| **PUT** | `/user/profile` | Yes | Updates skills, target role, bio, or upload avatar. |
+| **POST** | `/resume/upload` | Yes | Uploads a PDF resume and extracts keywords/summary. |
+| **POST** | `/interview/start` | Yes | Initializes a mock interview session. |
+| **GET** | `/interview/questions`| Yes | Feeds or generates next AI behavioral question. |
+| **POST** | `/interview/answer` | Yes | Submits and evaluates question answer (optional audio). |
+| **GET** | `/analytics/summary` | Yes | Gathers confidence, streak, and historical analytics. |
+| **GET** | `/admin/users` | Admin | Lists registered candidate directory. |
 
 ---
 
-## 🛠️ Optional Compiler Configurations (For Coding Arena)
+## 💡 Usage Guide
 
-If you plan to write and run code in C, C++, or Java, the backend requires local compiler binaries to compile your code:
-*   **C (GCC) & C++ (G++)**:
-    *   **macOS**: Install Xcode Command Line Tools via `xcode-select --install`.
-    *   **Linux**: Install build essentials via `sudo apt install build-essential`.
-    *   **Windows**: Install [MinGW-w64](https://www.mingw-w64.org/) and add it to your system Environment Variables path.
-*   **Java (JDK)**:
-    *   Install JDK 11 or higher and verify that `javac -version` and `java -version` work in your terminal.
+1.  **Register/Login:** Set up a candidate profile. Fill in your preferred role and skills, or upload a resume to let AI extract them.
+2.  **Start Mock Interview:** Go to the *Interview* tab, choose a category and difficulty level, and click *Start*.
+3.  **Record Responses:** Enable your camera/microphone. Click *Start Recording* to answer using speech, then click *Save*.
+4.  **Practice Code:** Go to the *Coding* tab, select an algorithm question, select your language, type your code, and click *Run Code*.
+5.  **Review Dashboard:** Track your success margins, strengths, and weaknesses on the *Dashboard* and *Analytics* pages.
 
-*If these are not installed, you can still practice coding challenges using **Python 3** and **JavaScript**, which work out of the box!*
+---
+
+## 🚢 Deployment
+
+### Frontend (Static Site Hosting)
+The frontend is built using Vite and compiles to a standard SPA. You can build it for production and host it on **Vercel**, **Netlify**, or **AWS S3**:
+```bash
+cd frontend
+npm run build
+```
+This outputs a production-ready bundle in `frontend/dist/`.
+
+### Backend (WSGI Hosting)
+You can deploy the Flask API using **Gunicorn** or **uWSGI** on platforms like **Render**, **Heroku**, or **AWS EC2**:
+```bash
+pip install gunicorn
+gunicorn --bind 0.0.0.0:5050 backend.app:app
+```
+
+### Database
+Setup a managed MongoDB instance on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas), configure network access (IP whitelisting), and point the `MONGO_URI` to your connection string.
+
+---
+
+## 🔮 Future Improvements (Roadmap)
+*   [ ] **Real-time Video Sentiment Analysis:** Evaluate facial expressions and stress levels during playback.
+*   [ ] **Peer Coding Rooms:** Collaborative live coding interviews with web-socket boards.
+*   [ ] **PDF Report Export:** Allow candidates to download structured performance reports.
+*   [ ] **Interactive Calendar Booking:** Set up real-time interviews with human mentors.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+1.  Fork this repository.
+2.  Create a feature branch: `git checkout -b feature/AmazingFeature`.
+3.  Commit your changes: `git commit -m 'Add some AmazingFeature'`.
+4.  Push to the branch: `git push origin feature/AmazingFeature`.
+5.  Open a Pull Request.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👤 Author
+
+*   **Shraddha Jain**
+    *   GitHub: [@shraddhajain0989](https://github.com/shraddhajain0989)
+    *   Email: [shraddhajain0989@gmail.com](mailto:shraddhajain0989@gmail.com)
