@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: smarthire-ai-backend
+    env: python
+    region: oregon
+    plan: free
+    # Build: upgrade pip first to avoid resolver issues, then install deps
+    buildCommand: >
+      pip install --upgrade pip &&
+      pip install -r requirements.txt
+    # Start: gunicorn from repo root so `backend.app` module path resolves
+    startCommand: gunicorn backend.app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --log-level info
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PYTHON_UNBUFFERED
+        value: "1"
+      # The following secrets must be set manually in Render dashboard:
+      # - MONGO_URI
+      # - JWT_SECRET
+      # - OPENAI_API_KEY
+      # - CORS_ORIGINS  (e.g. https://your-vercel-app.vercel.app)
+      # - CLOUDINARY_CLOUD_NAME
+      # - CLOUDINARY_API_KEY
+      # - CLOUDINARY_API_SECRET
+    healthCheckPath: /
