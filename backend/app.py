@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from backend.config import CORS_ORIGINS, JWT_SECRET
@@ -17,7 +17,13 @@ app.config['JWT_SECRET_KEY'] = JWT_SECRET
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = False
 
-CORS(app, origins=CORS_ORIGINS, supports_credentials=True)
+# ── Layer 1: Flask-CORS (handles most cases) ─────────────────────────────────
+CORS(app,
+     origins=CORS_ORIGINS,
+     supports_credentials=True,
+     allow_headers=['Content-Type', 'Authorization'],
+     methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'])
+
 JWTManager(app)
 
 app.register_blueprint(auth_bp)
@@ -28,6 +34,23 @@ app.register_blueprint(analytics_bp)
 app.register_blueprint(admin_bp)
 app.register_blueprint(coding_bp)
 app.register_blueprint(practice_bp)
+
+
+# ── Layer 2: Manual CORS headers (bulletproof fallback) ──────────────────────
+@app.after_request
+def apply_cors_headers(response):
+    origin = request.headers.get('Origin', '')
+    # Allow if exact match OR any smarthire*.vercel.app subdomain
+    is_allowed = (
+        origin in CORS_ORIGINS
+        or ('smarthire' in origin and origin.endswith('.vercel.app'))
+    )
+    if is_allowed:
+        response.headers['Access-Control-Allow-Origin'] = origin
+        response.headers['Access-Control-Allow-Credentials'] = 'true'
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS, PATCH'
+    return response
 
 
 @app.route('/')
