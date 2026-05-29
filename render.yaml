@@ -4,22 +4,22 @@ services:
     env: python
     region: oregon
     plan: free
-    # Build: upgrade pip first to avoid resolver issues, then install deps
     buildCommand: >
       pip install --upgrade pip &&
       pip install -r requirements.txt
-    # Start: gunicorn from repo root so `backend.app` module path resolves
     startCommand: gunicorn backend.app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --log-level info
     envVars:
       - key: FLASK_ENV
         value: production
       - key: PYTHON_UNBUFFERED
         value: "1"
-      # The following secrets must be set manually in Render dashboard:
-      # - MONGO_URI
-      # - JWT_SECRET
-      # - OPENAI_API_KEY
-      # - CORS_ORIGINS  (e.g. https://your-vercel-app.vercel.app)
+      # Allow requests from Vercel frontend
+      - key: CORS_ORIGINS
+        value: "https://smarthire-2m0jcsoyw-shraddhajain0989s-projects.vercel.app,https://smarthire-ai.vercel.app,http://localhost:5173,http://localhost:4173"
+      # ── SECRETS: set these manually in Render dashboard → Environment tab ──
+      # - MONGO_URI         (MongoDB Atlas connection string)
+      # - JWT_SECRET        (strong random string)
+      # - OPENAI_API_KEY    (your OpenAI key)
       # - CLOUDINARY_CLOUD_NAME
       # - CLOUDINARY_API_KEY
       # - CLOUDINARY_API_SECRET
