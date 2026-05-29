@@ -15,7 +15,7 @@ services:
         value: "1"
       # Allow requests from Vercel frontend
       - key: CORS_ORIGINS
-        value: "https://smarthire-2m0jcsoyw-shraddhajain0989s-projects.vercel.app,https://smarthire-ai.vercel.app,http://localhost:5173,http://localhost:4173"
+        value: "https://smarthire-ai-three.vercel.app,http://localhost:5173,http://localhost:4173"
       # ── SECRETS: set these manually in Render dashboard → Environment tab ──
       # - MONGO_URI         (MongoDB Atlas connection string)
       # - JWT_SECRET        (strong random string)
